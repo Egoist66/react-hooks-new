@@ -1,9 +1,11 @@
-import { FC, useEffect } from "react";
+import { FC, use, useEffect } from "react";
 import { useForm } from "../hooks/useForm";
 import { SubmitButton } from "./SubmitButton";
 
-export const Form: FC = () => {
+export const Form: FC<{postsPromise: Promise<any>}> = ({postsPromise}) => {
   const { state, submitAction } = useForm();
+
+  const posts = use(postsPromise) as any[]
 
 
   useEffect(() => {
@@ -11,19 +13,27 @@ export const Form: FC = () => {
   }, [state]);
 
   return (
-    <form action={submitAction} className="mui-form">
-      <legend>Login</legend>
-      <div className="mui-textfield">
-        <input name="email" type="email" placeholder="Email" />
-      </div>
-      <div className="mui-textfield">
-        <input name="password" type="password" placeholder="Password" />
-      </div>
+    <>
+        
+        <form action={submitAction} className="mui-form">
+        <legend>Login</legend>
+        <div className="mui-textfield">
+            <input name="email" type="email" placeholder="Email" />
+        </div>
+        <div className="mui-textfield">
+            <input name="password" type="password" placeholder="Password" />
+        </div>
 
-      <SubmitButton />
+        <SubmitButton />
 
-      {state.data && !state.error && <p>{state.data.email} Logged In</p>}
-      {state.error && <p style={{ color: "red" }}>{state.error}</p>}
-    </form>
+        {state.data && !state.error && <p>{state.data.email} Logged In</p>}
+        {state.error && <p style={{ color: "red" }}>{state.error}</p>}
+        </form>
+
+
+        { state.data ? posts.map(post => <p key={post.id}>{post.title}</p>) : null}
+    
+    
+    </>
   );
 };

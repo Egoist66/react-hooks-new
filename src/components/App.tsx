@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Form } from './Form';
 
+
+const postsPromise = fetch('https://jsonplaceholder.typicode.com/posts').then(res => res.json())
 function App() {
   const [count, setCount] = useState<number>(0)
 
@@ -27,8 +29,10 @@ function App() {
   return (
     <>
       <div className="mui-container">
-        <Form />
+        <Form postsPromise={postsPromise} />
       </div>
+
+  
     </>
   )
 }
