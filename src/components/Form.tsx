@@ -1,8 +1,8 @@
-import { FC, use, useEffect } from "react";
+import { FC, memo, use, useEffect } from "react";
 import { useForm } from "../hooks/useForm";
 import { SubmitButton } from "./SubmitButton";
 
-export const Form: FC<{postsPromise: Promise<any>}> = ({postsPromise}) => {
+export const Form: FC<{postsPromise: Promise<any>}> = memo(({postsPromise}) => {
   const { state, submitAction } = useForm();
 
   const posts = use(postsPromise) as any[]
@@ -15,7 +15,7 @@ export const Form: FC<{postsPromise: Promise<any>}> = ({postsPromise}) => {
   return (
     <>
         
-        <form action={submitAction} className="mui-form">
+        <form  action={submitAction} className="mui-form">
         <legend>Login</legend>
         <div className="mui-textfield">
             <input name="email" type="email" placeholder="Email" />
@@ -36,4 +36,4 @@ export const Form: FC<{postsPromise: Promise<any>}> = ({postsPromise}) => {
     
     </>
   );
-};
+});
