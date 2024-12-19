@@ -31,7 +31,7 @@ export const Form: FC<{postsPromise: Promise<any>}> = ({postsPromise}) => {
         </form>
 
 
-        { state.data ? posts.map(post => <p key={post.id}>{post.title}</p>) : null}
+        { state.data && !state.error ? posts.map(post => <p key={post.id}>{post.title}</p>) : null}
     
     
     </>
